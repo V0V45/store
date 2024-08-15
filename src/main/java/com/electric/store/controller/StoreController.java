@@ -10,9 +10,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class StoreController {
     
     @GetMapping("/store")
-    public String returnIndex(@RequestParam(name="tools", defaultValue="true", required=false) String param, Model model) {
-        model.addAttribute(param, model);
-        return "index";
+    public String returnIndex(@RequestParam(name="show", defaultValue="all", required=false) String param, Model model) {
+        
+
+        if (param.equals("2")) {
+            model.addAttribute("shows", "2");
+            return "index";
+        } else if (param.equals("1")) {
+            model.addAttribute("shows", "1");
+            return "index";
+        } else {
+            model.addAttribute("shows", "все");
+            return "index";
+        }
     }
     
 

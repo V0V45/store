@@ -8,5 +8,19 @@
 </head>
 <body>
     <p th:text="|Сколько продуктов показываются: ${shows}|" />
+    <div th:switch="${shows}">
+        <div th:case="2">
+            <p th:text="${product1}"></p>
+            <p th:text="${product2}"></p>
+        </div>
+        <div th:case="1">
+            <p th:text="${product1}"></p>
+        </div>
+        <div th:case="*">
+            <p th:text="${product1}"></p>
+            <p th:text="${product2}"></p>
+            <p th:text="${product3}"></p>
+        </div>
+    </div>
 </body>
 </html>

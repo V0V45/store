@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Список электротоваров</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./styles/list.css" />
+</head>
+
+<body>
+    <h1>Список электротоваров</h1>
+    <table>
+        <thead>
+            <tr class="table__headRow">
+                <th>Товар</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Обжимные клещи для наконечников</td>
+                <td>400 руб.</td>
+            </tr>
+            <tr>
+                <td>Осциллограф портативный</td>
+                <td>7500 руб.</td>
+            </tr>
+            <tr>
+                <td>Лабораторный источник питания</td>
+                <td>2000 руб.</td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="post" action="/no_action">
+        <label for="productName" class="form__productNameLabel">Название товара, который нужно добавить:</label>
+        <input id="productName" name="productName" placeholder="Название" />
+        <label for="productPrice" class="form__productPriceLabel">Цена товара, который нужно добавить:</label>
+        <input id="productPrice" name="productPrice" placeholder="Цена" />
+        <button type="submit">Добавить товар</button>
+    </form>
+</body>
+
+</html>

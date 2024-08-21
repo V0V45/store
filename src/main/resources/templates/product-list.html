@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="product: ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td><a th:href="@{'/edit-form/' + ${product.id}}">Edit</a></td>
+            <td><a th:href="@{'/delete/' + ${product.id}}">Delete</a></td>
+        </tr>
+    </table>
+    <a href="/create-form">Add product</a>
+</body>
+</html>

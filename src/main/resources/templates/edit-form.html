@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List: edit</title>
+</head>
+<body>
+    <form method="post" action="/update">
+        <input type="hidden" name="id" th:value="${product.id}" />
+        <input type="text" name="name" placeholder="Product name" th:value="${product.name}" />
+        <input type="text" name="price" placeholder="Product price" th:value="${product.price}" />
+        <input type="submit" />
+    </form>
+</body>
+</html>

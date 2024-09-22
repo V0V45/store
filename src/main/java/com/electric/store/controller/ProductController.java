@@ -1,22 +1,27 @@
 package com.electric.store.controller;
 
-import java.util.UUID;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import com.electric.store.dao.ProductDao;
 import com.electric.store.model.Product;
-import com.electric.store.model.ProductStorage;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
 public class ProductController {
+    private ProductDao productDao;
+
+    @Autowired
+    public ProductController(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 
     @GetMapping("/")
     public String productList(Model model) {
-        model.addAttribute("products", ProductStorage.getProducts());
+        model.addAttribute("products", productDao.findAll());
         return "product-list";
     }
 
@@ -27,34 +32,27 @@ public class ProductController {
 
     @PostMapping("/create")
     public String create(Product product) {
-        product.setId(UUID.randomUUID().toString());
-        ProductStorage.getProducts().add(product);
+        productDao.save(product);
         return "redirect:/";
     }
 
     @GetMapping("/edit-form/{id}")
     public String editForm(@PathVariable("id") String id, Model model) {
-        Product productToEdit = ProductStorage.getProducts().stream().filter(product -> product.getId().equals(id))
-                .findFirst().orElseThrow(RuntimeException::new);
+        Product productToEdit = productDao.getById(id);
         model.addAttribute("product", productToEdit);
         return "edit-form";
     }
 
     @PostMapping("/update")
     public String update(Product productToEdit) {
-        for (Product productInside : ProductStorage.getProducts()) {
-            if (productInside.getId().equals(productToEdit.getId())) {
-                productInside.setName(productToEdit.getName());
-                productInside.setPrice(productToEdit.getPrice());
-            }
-        }
+        productDao.update(productToEdit);
         return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")
     public String removeProduct(@PathVariable("id") String id) {
-        Product productToDelete = ProductStorage.getProducts().stream().filter(product -> product.getId().equals(id)).findFirst().orElseThrow(RuntimeException::new);
-        ProductStorage.getProducts().remove(productToDelete);
+        Product productToDelete = productDao.getById(id);
+        productDao.delete(productToDelete);
         return "redirect:/";
     }
     
